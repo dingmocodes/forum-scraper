@@ -7,6 +7,7 @@ if not os.path.exists(nltk_data_dir):
 nltk.data.path.clear()
 nltk.data.path.append(nltk_data_dir)
 nltk.download("vader_lexicon", download_dir=nltk_data_dir)
+nltk.download("punkt", download_dir=nltk_data_dir)
 
 import requests
 import nltk
