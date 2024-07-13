@@ -32,19 +32,15 @@ class ThreadInfo:
         )
     
 def get_driver():
-    options = Options()
+    options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     service = Service(ChromeDriverManager().install())
-    return webdriver.Chrome(
-        service=Service(
-            ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
-        ),
-        options=options,
-    )
+    return webdriver.Chrome(service=Service(ChromeDriverManager().install()),
+                            options=options)
 
 def get_threads(forum, search_terms, num_results):
     driver = get_driver()
