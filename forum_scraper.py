@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchElementException
+from webdriver_manager.chrome import ChromeDriverManager
 
 class ThreadInfo:
     def __init__(self, title, url, date, views, replies, likes, phrases):
@@ -28,17 +29,19 @@ class ThreadInfo:
             f'Likes: {self.likes}\n'
             f'------------------'
         )
-
-def get_threads(forum, search_terms, num_results):
-    # selenium setup
+    
+def get_driver():
     options = Options()
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
-    service = Service(executable_path='./chromedriver.exe')
-    driver = webdriver.Chrome(service=service, options=options)
+    service = Service(ChromeDriverManager().install())
+    return webdriver.Chrome(service=service, options=options)
+
+def get_threads(forum, search_terms, num_results):
+    driver = get_driver()
 
     # prepare the starting url
     start_url = ''
