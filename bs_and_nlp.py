@@ -1,3 +1,13 @@
+import os
+import nltk
+
+nltk_data_dir = "./resources/nltk_data_dir/"
+if not os.path.exists(nltk_data_dir):
+    os.makedirs(nltk_data_dir, exist_ok=True)
+nltk.data.path.clear()
+nltk.data.path.append(nltk_data_dir)
+nltk.download("vader_lexicon", download_dir=nltk_data_dir)
+
 import requests
 import nltk
 from bs4 import BeautifulSoup
