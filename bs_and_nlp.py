@@ -73,7 +73,7 @@ def top_three_phrases(url):
     r = requests.get(url)
     html = r.text
 
-    soup = BeautifulSoup(html, "html5lib")
+    soup = BeautifulSoup(html, "html.parser")
 
     # obtain list of posts from html
     post_list = soup.find_all("div", class_="post")
