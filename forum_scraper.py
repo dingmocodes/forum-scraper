@@ -2,13 +2,10 @@ import bs_and_nlp
 import time
 from datetime import datetime
 from selenium import webdriver
-from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchElementException
 from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.core.os_manager import ChromeType
 
 class ThreadInfo:
     def __init__(self, title, url, date, views, replies, likes, phrases):
