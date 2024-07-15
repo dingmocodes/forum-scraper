@@ -103,11 +103,13 @@ def top_three_phrases(url):
     relevant_phrases = extract_relevant_phrases(entire_forum)
     ranked_phrases = {}
 
+    # keep phrases within certain amount of words 
     for phrases in relevant_phrases:
         if len(phrases.split(' ')) > 1 and len(phrases.split(' ')) < 6:
             scores = analyzer.polarity_scores(phrases)
             ranked_phrases[phrases] = abs(scores['compound'])
 
+    # sort phrases from highest to lowest sentiment
     ranked_phrases = sorted(ranked_phrases.items(), key=lambda x:x[1], reverse=True)
 
     return [phrase for phrase, score in ranked_phrases[:3]]
