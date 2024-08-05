@@ -1,3 +1,4 @@
+import shutil
 import bs_and_nlp
 import time
 from datetime import datetime
@@ -5,7 +6,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.common.exceptions import NoSuchElementException
-from webdriver_manager.chrome import ChromeDriverManager
 
 class ThreadInfo:
     def __init__(self, title, url, date, views, replies, likes, phrases):
@@ -35,7 +35,7 @@ def get_driver():
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
-    service = Service(ChromeDriverManager().install())
+    service = Service(shutil.which('chromedriver'))
     return webdriver.Chrome(service=service, options=options)
 
 def get_threads(forum, search_terms, num_results):
