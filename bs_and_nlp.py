@@ -1,5 +1,7 @@
 import os
 import nltk
+import time
+from selenium import webdriver
 
 nltk_data_dir = "./resources/nltk_data_dir/"
 if not os.path.exists(nltk_data_dir):
@@ -81,25 +83,21 @@ def extract_relevant_phrases(post_text):
     
     return relevant_phrases
 
-def top_three_phrases(url):
-    r = requests.get(url)
-    html = r.text
-
+def top_three_phrases(html):
     soup = BeautifulSoup(html, "html.parser")
 
     # obtain list of posts from html
-    post_list = soup.find_all("div", class_="post")
-    post_list.pop()  # to remove bot reply
+    post_list = soup.find_all("div", class_="cooked")
 
     # append all posts to a string
     entire_forum = ""
     for text in post_list:
         entire_forum += text.get_text(" ", strip = True)
 
-    # Create an instance of the Vader sentiment analyzer
+    # create an instance of the Vader sentiment analyzer
     analyzer = SentimentIntensityAnalyzer()
 
-    # Extract relevant phrases
+    # extract relevant phrases
     relevant_phrases = extract_relevant_phrases(entire_forum)
     ranked_phrases = {}
 
